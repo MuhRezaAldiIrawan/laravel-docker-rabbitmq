@@ -71,6 +71,32 @@ return [
             'after_commit' => false,
         ],
 
+        // RabbitMQ connection (requires vladimir-yuldashev/laravel-queue-rabbitmq)
+        'rabbitmq' => [
+            'driver' => 'rabbitmq',
+            'hosts' => [
+                [
+                    'host' => env('RABBITMQ_HOST', '127.0.0.1'),
+                    'port' => env('RABBITMQ_PORT', 5672),
+                    'user' => env('RABBITMQ_USER', 'root'),
+                    'password' => env('RABBITMQ_PASSWORD', 'root'),
+                    'vhost' => env('RABBITMQ_VHOST', '/'),
+                ],
+            ],
+            'options' => [
+                'exchange' => [
+                    'name' => env('RABBITMQ_EXCHANGE', 'laravel'),
+                    'type' => env('RABBITMQ_EXCHANGE_TYPE', 'direct'),
+                    'passive' => false,
+                    'durable' => true,
+                    'auto_delete' => false,
+                ],
+            ],
+            'queue' => env('RABBITMQ_QUEUE', 'default'),
+            'retry_after' => 90,
+            'after_commit' => false,
+        ],
+
     ],
 
     /*
